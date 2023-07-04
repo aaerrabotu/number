@@ -1,0 +1,115 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Segmented Numerals Animation</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            background-color: #F5F5F5;
+            margin: 0;
+            padding: 20px;
+            text-align: center;
+        }
+
+        h1 {
+            color: #333;
+            font-size: 36px;
+            margin-bottom: 20px;
+        }
+
+        .display-container {
+            display: flex;
+            justify-content: center;
+            margin-bottom: 20px;
+        }
+
+        .segment {
+            width: 0;
+            height: 0;
+            border-style: solid;
+            border-width: 0 25px 50px 25px;
+            border-color: transparent transparent #000 transparent;
+            margin: 5px;
+            transform: rotate(180deg);
+        }
+
+        .on {
+            background-color: #FF0000;
+        }
+
+        .animation-info {
+            color: #666;
+            margin-top: 10px;
+            font-size: 24px;
+        }
+    </style>
+</head>
+<body>
+    <h1>Segmented Numerals Animation</h1>
+    <div class="display-container">
+        <div>
+            <h2>Animation 2</h2>
+            <div class="display" id="display2"></div>
+            <p class="animation-info" id="animationInfo2"></p>
+        </div>
+    </div>
+
+    <script>
+        // Display list of combinations for animation 2 (0 to 9)
+        var displayList2 = [
+            { combination: "1111110", number: 0 },
+            { combination: "0110000", number: 1 },
+            { combination: "1101101", number: 2 },
+            { combination: "1111001", number: 3 },
+            { combination: "0110011", number: 4 },
+            { combination: "1011011", number: 5 },
+            { combination: "1011111", number: 6 },
+            { combination: "1110000", number: 7 },
+            { combination: "1111111", number: 8 },
+            { combination: "1111011", number: 9 }
+        ];
+
+        // Function to animate a single combination for animation 2
+        function animateCombination2(combination, number, displayElement, infoElement) {
+            // Convert combination to segments (e.g., "1111110" -> [1, 1, 1, 1, 1, 1, 0])
+            var segments = combination.split("").map(Number);
+
+            // Display the segments
+            displaySegments(displayElement, segments);
+
+            // Update the current combination being animated
+            infoElement.textContent = "Combination: " + combination + " (Number: " + number + ")";
+
+            // Move to the next combination
+            currentIndex2++;
+            if (currentIndex2 >= displayList2.length) {
+                currentIndex2 = 0;
+            }
+
+            // Animate the next combination after a delay
+            setTimeout(function() {
+                animateCombination2(displayList2[currentIndex2].combination, displayList2[currentIndex2].number, displayElement, infoElement);
+            }, 1000); // Adjust the duration as needed
+        }
+
+        // Function to display the segments
+        function displaySegments(displayElement, segments) {
+            displayElement.innerHTML = "";
+
+            for (var i = 0; i < segments.length; i++) {
+                var segment = document.createElement("div");
+                segment.className = "segment" + (segments[i] === 1 ? " on" : "");
+                displayElement.appendChild(segment);
+            }
+        }
+
+        // Animation loop for animation 2
+        var currentIndex2 = 0;
+        var displayElement2 = document.getElementById("display2");
+        var infoElement2 = document.getElementById("animationInfo2");
+
+        // Start the animation
+        animateCombination2(displayList2[currentIndex2].combination, displayList2[currentIndex2].number, displayElement2, infoElement2);
+    </script>
+</body>
+</html>
