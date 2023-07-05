@@ -1,0 +1,114 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>7-Segment LED Display - Numeral Animation</title>
+  <style>
+    .display {
+      width: 150px;
+      height: 250px;
+      background-color: rgb(232, 226, 226);
+      position: relative;
+    }
+    .segment {
+      position: absolute;
+      background-color: white;
+      border-radius: 5px;
+      transition: background-color 0.3s;
+    }
+    .segment.a {
+      top: 0;
+      left: 30px;
+      width: 90px;
+      height: 20px;
+    }
+    .segment.b {
+      top: 20px;
+      right: 0;
+      width: 20px;
+      height: 110px;
+    }
+    .segment.c {
+      top: 140px;
+      right: 0;
+      width: 20px;
+      height: 110px;
+    }
+    .segment.d {
+      top: 250px;
+      left: 30px;
+      width: 90px;
+      height: 20px;
+    }
+    .segment.e {
+      top: 140px;
+      left: 0;
+      width: 20px;
+      height: 110px;
+    }
+    .segment.f {
+      top: 20px;
+      left: 0;
+      width: 20px;
+      height: 110px;
+    }
+    .segment.g {
+      top: 120px;
+      left: 30px;
+      width: 90px;
+      height: 20px;
+    }
+  </style>
+</head>
+<body>
+  <div class="display">
+    <div class="segment a"></div>
+    <div class="segment b"></div>
+    <div class="segment c"></div>
+    <div class="segment d"></div>
+    <div class="segment e"></div>
+    <div class="segment f"></div>
+    <div class="segment g"></div>
+  </div>
+
+  <script>
+    // Display list with segments to turn on for each number
+    const displayList = [
+  [1, 1, 1, 1, 1, 1, 0, 0], // 0
+  [0, 1, 1, 0, 0, 0, 0, 0], // 1
+  [1, 1, 0, 1, 1, 0, 1, 0], // 2
+  [1, 1, 1, 1, 0, 0, 1, 0], // 3
+  [0, 1, 1, 0, 0, 1, 1, 0], // 4
+  [1, 0, 1, 1, 0, 1, 1, 0], // 5
+  [1, 0, 1, 1, 1, 1, 1, 0], // 6
+  [1, 1, 1, 0, 0, 0, 0, 0], // 7
+  [1, 1, 1, 1, 1, 1, 1, 0], // 8
+  [1, 1, 1, 1, 0, 1, 1, 0]  // 9
+];
+
+
+    // Function to update the display based on the display list
+    function updateDisplay(num) {
+      const segments = document.getElementsByClassName('segment');
+
+      // Turn off all segments
+      Array.from(segments).forEach(segment => {
+        segment.style.backgroundColor = 'white';
+      });
+
+      // Turn on the segments specified by the display list
+      displayList[num].forEach((value, index) => {
+        if (value === 1) {
+          segments[index].style.backgroundColor = 'red';
+        }
+      });
+    }
+
+    // Test animation - Update the display every 1 second (from 0 to 9)
+    let currentNumber = 0;
+    setInterval(() => {
+      updateDisplay(currentNumber);
+      currentNumber = (currentNumber + 1) % 10;
+    }, 1000);
+  </script>
+</body>
+</html>
